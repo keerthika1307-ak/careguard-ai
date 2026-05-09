@@ -1,27 +1,29 @@
- // src/lib/claudeClient.js
+// src/lib/claudeClient.js
 // ============================================
 // ALL CLAUDE API CALLS IN ONE PLACE
 // Never call Claude directly from components
 // Always use these functions
 // ============================================
 
-const CLAUDE_API = 'https://api.anthropic.com/v1/messages'
-
-const API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY
+const CLAUDE_API = '/api/anthropic/v1/messages'
 
 // Model choices (use haiku to save credits, sonnet for important calls)
 const HAIKU = 'claude-haiku-4-5'
 const SONNET = 'claude-sonnet-4-5'
 
+async function parseClaudeError(res) {
+  try {
+    const err = await res.json()
+    return err.error?.message || `Claude API error (${res.status})`
+  } catch {
+    return `Claude API error (${res.status})`
+  }
+}
+
 async function callClaude(model, systemPrompt, userMessage, maxTokens = 300) {
   const res = await fetch(CLAUDE_API, {
     method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-calls': 'true'
-      },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model,
       max_tokens: maxTokens,
@@ -31,8 +33,7 @@ async function callClaude(model, systemPrompt, userMessage, maxTokens = 300) {
   })
 
   if (!res.ok) {
-    const err = await res.json()
-    throw new Error(err.error?.message || 'Claude API error')
+    throw new Error(await parseClaudeError(res))
   }
 
   const data = await res.json()
@@ -156,8 +157,7 @@ Your role:
   })
 
   if (!res.ok) {
-    const err = await res.json()
-    throw new Error(err.error?.message || 'Claude API error')
+    throw new Error(await parseClaudeError(res))
   }
 
   const data = await res.json()

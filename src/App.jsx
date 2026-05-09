@@ -8,6 +8,7 @@ import './styles/theme.css'
 import Landing   from './pages/Landing'
 import Login     from './pages/Login'
 import Dashboard from './pages/Dashboard'
+import Checkin from './pages/Checkin'
 
 // Placeholder pages (build these next)
 const Placeholder = ({ title }) => (
@@ -54,7 +55,7 @@ export default function App() {
 
         {/* Protected */}
         <Route path="/dashboard" element={<Protected><Dashboard /></Protected>} />
-        <Route path="/checkin"   element={<Protected><Placeholder title="Daily Check-in" /></Protected>} />
+        <Route path="/checkin" element={<Protected><Checkin /></Protected>} />
         <Route path="/chat"      element={<Protected><Placeholder title="AI Companion" /></Protected>} />
         <Route path="/respite"   element={<Protected><Placeholder title="Respite Care" /></Protected>} />
         <Route path="/peers"     element={<Protected><Placeholder title="Peer Community" /></Protected>} />

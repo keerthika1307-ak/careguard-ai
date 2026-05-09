@@ -7,3 +7,4 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
+console.log('KEY:', import.meta.env.VITE_ANTHROPIC_API_KEY)

@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
 import Sidebar from '../components/Sidebar'
-import { getUser, getProfile, getLatestRiskScore, getRiskScoreHistory, getRecentCheckins, getTodayCheckin, getDailyWellnessTip } from '../lib/supabaseClient'
-import { getDailyWellnessTip as getClaudeTip } from '../lib/claudeClient'
+import { getUser, getProfile, getLatestRiskScore, getRiskScoreHistory, getRecentCheckins, getTodayCheckin } from '../lib/supabaseClient'
+import { getDailyWellnessTip } from '../lib/claudeClient'
 
 // Mock data for demo if no real data yet
 const MOCK_HISTORY = [
